@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'styles.css' %}">
+</head>
+<body>
+    <nav>
+        <a href="{% url 'home' %}">
+            <button>Home</button>
+        </a>
+    
+        
+        {% if request.user.is_authenticated %}
+            <a href="{% url 'kyc' %}">
+                <button>KYC</button>
+            </a>
+            <form method="POST" action="{% url 'logout' %}">
+                {% csrf_token %}
+                <button type="submit">logout</button>
+            </form>
+            <a href="{% url 'profile' %}">
+                <button>Profile</button>
+            </a>
+            <a href="{% url 'notifications' %}">
+                <button>notifications</button>
+            </a>
+            <a href="{% url 'withdraw' %}">
+                <button>withdraw</button>
+            </a>
+            <a href="{% url 'wallet' %}">
+                <button>Wallet</button>
+            </a>
+            <a href="{% url 'deposit' %}">
+                <button>Deposit</button>
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}">
+                <button>Login</button>
+            </a>
+            <a href="{% url 'register' %}">
+                <button>Register</button>
+            </a>
+        {% endif %}
+        <div>
+            {% if request.user.is_authenticated %}
+                <p>Hi, {{ request.user.username }}!</p>
+            {% else %}
+                <p>You are not <a href="{% url 'login' %}">logged</a> in.</p>
+            {% endif %}
+        </div>
+    </nav>
+    <div>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>

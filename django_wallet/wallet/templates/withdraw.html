@@ -1,0 +1,26 @@
+{% include 'base.html' %}
+
+{% block content %}
+    <h1>Withdrawal of funds</h1>
+
+    {% if error %}
+        <p style="color: red;">{{ error }}</p>
+    {% endif %}
+
+    <form method="post" id="withdraw-form">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">WITHDRAW</button>
+        <button type="button" class="btn withdraw-all-btn" style="display: flex; justify-content: center;" onclick="withdrawAll()">BRING EVERYTHING OUT!</button>
+    </form>
+
+
+
+
+<script>
+    function withdrawAll() {
+        document.getElementById('id_amount').value = "{{ wallet.balance }}";
+        document.getElementById('withdraw-form').submit();
+    }
+</script>
+{% endblock %}

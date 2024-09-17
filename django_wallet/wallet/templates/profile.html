@@ -1,0 +1,19 @@
+{% include 'base.html' %}
+
+
+{% block content %}
+    <h1>Your Profile</h1>
+
+    {% if profile.avatar %}
+    <img src="{{ profile.avatar.url }}" alt="Avatar" style="max-width: 150px; max-height: 150px; border-radius: 50%;">
+    {% else %}
+    <p>No avatar uploaded.</p>
+    {% endif %}
+
+  
+    <form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+    </form>
+{% endblock %}

@@ -1,0 +1,15 @@
+{% include 'base.html' %}
+
+<h2>Verification KYC</h2>
+
+<p>Your current status KYC: {{ kyc.get_status_display }}</p>
+
+{% if kyc.document %}
+    <p>Uploaded document: <a href="{{ kyc.document.url }}">download</a></p>
+{% endif %}
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Send document</button>
+</form>
